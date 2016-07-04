@@ -18,11 +18,6 @@ class SearchBar extends Component {
               Value of input: {this.state.term}
           </div>
 
-          //<div>
-          //  <input onChange = {this.onInputChange}/>
-          //  Value of input: {this.state.term}
-          //
-          //</div>
       );
     }
     //
