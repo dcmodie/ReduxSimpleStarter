@@ -6,6 +6,8 @@ const VideoDetail = ({video}) => {
       return <div>Loading...</div>
     }
 
+console.log ("video 999")
+console.log (video)
     const videoId = video.id.videoId;
     const url=`https://www.youtube.com/embed/${videoId}` ;
     return (
