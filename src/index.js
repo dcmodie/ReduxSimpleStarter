@@ -24,32 +24,32 @@ class App extends Component {
           { videos: [],
             selectedVideo: undefined
           };
-        YTSearch ({key: API_KEY, term: 'baseball'},  (data) =>{
-          console.log ("yt search 1")
-          console.log (data.length)
 
-           // console.log (data)
-          //  this.setState({videos});
-            // use setter, tells react that state has changed,
-            // and it will re-render
-            this.setState({
-              videos: data,
-              selectedVideo: data[0]});
-        });
         this.videoSelected = function videoSelected(){
 
         }
+        this.videoSearch('baseball')
     };
 
+    videoSearch(term){
+      YTSearch ({key: API_KEY, term: term},  (data) =>{
+        console.log ("yt search 1")
+        console.log (data.length)
+          this.setState({
+            videos: data,
+            selectedVideo: data[0]});
+      });
+    }
 
     render(){
         console.log ("render in app called")
         return (
             <div>
-                <SearchBar />
+                <SearchBar
+                  onSearchTermChange = {term => this.videoSearch(term)}/>
                 <VideoDetail video={this.state.selectedVideo} />
                 <VideoList
-                onVideoSelect={selectedVideo => this.setState({selectedVideo})} 
+                onVideoSelect={selectedVideo => this.setState({selectedVideo})}
                 videos={this.state.videos}/>
             </div>
         );
