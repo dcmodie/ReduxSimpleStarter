@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import SearchBar from './components/search_bar';
 import YTSearch from 'youtube-api-search'
 import VideoList from './components/video_list';
+import VideoDetail from './components/video_detail';
+//import VideoDetail from '/components/video_detail';
 
 
 const API_KEY = 'AIzaSyCeVnCFcPcECUGSfdfDuRfcAbtaOCUT6Vc';
@@ -18,7 +20,10 @@ class App extends Component {
     constructor (props){
         super (props);
         //persistent
-        this.state = {videos: []};
+        this.state =
+          { videos: [],
+            selectedVideo: undefined
+          };
         YTSearch ({key: API_KEY, term: 'baseball'},  (data) =>{
           console.log ("yt search 1")
           console.log (data.length)
@@ -27,19 +32,29 @@ class App extends Component {
           //  this.setState({videos});
             // use setter, tells react that state has changed,
             // and it will re-render
-            this.setState({videos: data});
+            this.setState({
+              videos: data,
+              selectedVideo: data[0]});
         });
+        this.videoSelected = function videoSelected(){
+
+        }
     };
+
 
     render(){
         console.log ("render in app called")
         return (
             <div>
                 <SearchBar />
-                <VideoList  videos={this.state.videos}/>
+                <VideoDetail video={this.state.selectedVideo} />
+                <VideoList  callback={this.videoSelected} videos={this.state.videos}/>
             </div>
         );
     }
+}
+App.test = function (event){
+  console.log("hellko")
 }
 //               <VideoList videos={this.state.videos} />
 
@@ -50,5 +65,7 @@ class App extends Component {
 //        </div>
 //    );
 //}
+
+export default App;
 
 ReactDOM.render(<App />, document.querySelector(".container"));
